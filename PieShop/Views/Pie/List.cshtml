@@ -1,0 +1,15 @@
+﻿@model PiesListViewModel
+
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<h1>@Model.CurrentCategory</h1>
+@foreach (var pie in Model.Pies)
+{
+    @Html.Partial("PieOverviewSummary",pie)
+}
+

@@ -1,8 +1,8 @@
 {
-  "name": "World News",
-  "short_name": "News",
-  "apple-mobile-web-app-tittle": "News Demo",
-  "theme_color": "#1e69a4",
+  "name": "Pie Shop",
+  "short_name": "Pies",
+  "apple-mobile-web-app-tittle": "Pies",
+  "theme_color": "#591c75",
   "background_color": "#2a21f3",
   "display": "standalone",
   "orientation": "portrait",

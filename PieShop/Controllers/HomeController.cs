@@ -5,27 +5,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PieShop.Models;
+using PieShop.ViewModels;
 
 namespace PieShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IPieRepository _pieRepository;
+
+        public HomeController(IPieRepository pieRepository)
         {
-            return View();
+            _pieRepository = pieRepository;
+        }
+
+        public ViewResult Index()
+        {
+            var homeViewModel = new HomeViewModel
+            {
+                PiesOfTheWeek = _pieRepository.PiesOfTheWeek
+            };
+
+            return View(homeViewModel);
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

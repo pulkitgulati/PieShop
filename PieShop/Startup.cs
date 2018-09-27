@@ -30,6 +30,8 @@ namespace PieShop
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IPieRepository, PieRepository>();
+            //services.AddTransient<ICategoryRepository, MockCategoryRepository>();
+            //services.AddTransient<IPieRepository, MockPieRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShoppingCart.GetCart(sp));
@@ -64,11 +66,16 @@ namespace PieShop
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                  name: "categoryfilter",
+                  template: "Pie/{action}/{category?}",
+                  defaults: new { Controller = "Pie", action = "List" });
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Pie}/{action=List}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DbInitializer.Seed(app);
+            //DbInitializer.Seed(app);
         }
     }
 }

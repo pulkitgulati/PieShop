@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PieShop.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace PieShop
 {
@@ -28,6 +29,12 @@ namespace PieShop
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<PieDBContext>(options =>
+       options.UseSqlServer(Configuration.GetConnectionString("PieDataBase")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>().
+                AddEntityFrameworkStores<PieDBContext>();
+
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IPieRepository, PieRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
@@ -42,8 +49,7 @@ namespace PieShop
             services.AddMemoryCache();
             services.AddSession();
 
-            services.AddDbContext<PieDBContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("PieDataBase")));
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +68,7 @@ namespace PieShop
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

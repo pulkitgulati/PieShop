@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace PieShop.Models
 {
-    public class PieDBContext : DbContext
+    public class PieDBContext : IdentityDbContext<IdentityUser>
     {
         public PieDBContext(DbContextOptions<PieDBContext> options)
             : base(options)

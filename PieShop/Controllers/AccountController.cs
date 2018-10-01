@@ -63,7 +63,6 @@ namespace PieShop.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
@@ -75,6 +74,13 @@ namespace PieShop.Controllers
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError(item.Code, item.Description);
+                    }
                 }
             }
             return View(loginViewModel);
